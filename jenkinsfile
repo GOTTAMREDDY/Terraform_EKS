@@ -6,38 +6,33 @@ pipeline {
     stages {
         stage('Clone the Code') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GOTTAMREDDY/Terraform_EKS.git']])
+                checkout scmGit(
+                    branches: [[name: '*/main']],
+                    extensions: [],
+                    userRemoteConfigs: [[url: 'https://github.com/GOTTAMREDDY/Terraform_EKS.git']]
+                )
             }
         }
         stage('Terraform Initialization') {
             steps {
-
-                    sh 'terraform init'
-
+                sh 'terraform init'
             }
         }
         stage('Terraform Validation') {
             steps {
-
-                    sh 'terraform validate'
-
+                sh 'terraform validate'
             }
         }
         stage('Infrastructure Checks') {
             steps {
-
-                    sh 'terraform plan'
-
+                sh 'terraform plan'
                 input(message: "Approve?", ok: "proceed")
-
             }
+        }
         stage('Create/Destroy EKS cluster') {
             steps {
-
-                    sh "terraform ${params.action} --auto-approve"
-
+                sh "terraform ${params.action} --auto-approve"
             }
         }
-        }
-    
-    }}
+    }
+}
