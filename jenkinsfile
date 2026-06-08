@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Clone the Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/GOTTAMREDDY/Terraform_EKS.git', credentialsId: 'your-jenkins-cred-id'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GOTTAMREDDY/Terraform_EKS.git']])
             }
         }
         stage('Terraform Initialization') {
