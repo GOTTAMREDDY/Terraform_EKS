@@ -11,32 +11,33 @@ pipeline {
         }
         stage('Terraform Initialization') {
             steps {
-                dir('terraform') {
+
                     sh 'terraform init'
-                }
+
             }
         }
         stage('Terraform Validation') {
             steps {
-                dir('terraform') {
+
                     sh 'terraform validate'
-                }
+
             }
         }
         stage('Infrastructure Checks') {
             steps {
-                dir('terraform') {
+
                     sh 'terraform plan'
-                }
+
                 input(message: "Approve?", ok: "proceed")
+
             }
-        }
         stage('Create/Destroy EKS cluster') {
             steps {
-                dir('terraform') {
+
                     sh "terraform ${params.action} --auto-approve"
-                }
+
             }
         }
-    }
-}
+        }
+    
+    }}
