@@ -16,7 +16,7 @@ module "eks" {
   control_plane_subnet_ids = module.vpc.intra_subnets
 
   eks_managed_node_group_defaults = {
-    ami_type       = "AL2_x86_64"
+    ami_type       = "AL2023_x86_64_STANDARD"
     instance_types = ["m5.large"]
     attach_cluster_primary_security_group = true
   }
